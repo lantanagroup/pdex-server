@@ -325,6 +325,9 @@ public class StarterJpaConfig {
 		// Added by Corey Spears to register custom member-match operation
 		fhirServer.registerProvider(new MemberMatchProvider(fhirServer.getFhirContext(), daoRegistry));
 
+		// Register Process Customizer that will do initial load (and possibly other things)
+		fhirServer.registerInterceptor(new ProcessCustomizer(fhirServer.getFhirContext(), daoRegistry));
+
 		/*
 		 * If you are using DSTU3+, you may want to add a terminology uploader, which allows
 		 * uploading of external terminologies such as Snomed CT. Note that this uploader
